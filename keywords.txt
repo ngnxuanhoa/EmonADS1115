@@ -1,0 +1,6 @@
+EmonADS1115	KEYWORD1
+begin	KEYWORD2
+configureChannel	KEYWORD2
+loop	KEYWORD2
+getRMS	KEYWORD2
+isReady	KEYWORD2
