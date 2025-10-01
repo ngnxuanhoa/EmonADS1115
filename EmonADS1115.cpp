@@ -74,6 +74,9 @@ void EmonADS1115::loop() {
     if (millis() - _lastCalculationTime < CALCULATION_INTERVAL) {
         // Đọc tuần tự từng kênh. Hàm này sẽ tự động chờ ~1.2ms.
         int16_t adcValue = _ads.readADC_SingleEnded(_currentChannel);
+        // Sử dụng bộ lọc thông thấp IIR đơn giản để liên tục cập nhật offset
+        const float alpha = 0.001;
+        _dcOffset = (1.0 - alpha) * _dcOffset + alpha * adcValue;
         double sample = adcValue - _dcOffset;
         _sumOfSquares[_currentChannel] += sample * sample;
         _sampleCounts[_currentChannel]++;
